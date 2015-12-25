@@ -1,0 +1,39 @@
+
+public class Conn {
+	private String ip;
+	private String db;
+	private String user_name;
+	private String password;
+	Connection conn=null;
+public Conn(){
+	MyConfig conf=new MyConfig();
+	//Jskf_config conf=new Jskf_config();
+	conf.getInfo2();
+	this.db=conf.getDb();
+	this.ip=conf.getIp();
+	this.user_name=conf.getUser();
+	this.password=conf.getPassword();
+}
+public Connection getConn2(){
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		conn=DriverManager.getConnection("jdbc:mysql://localhost/mine","hwf","hwf");
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return conn;
+}
+public Connection   getConn(){
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		conn=DriverManager.getConnection("jdbc:oracle:thin:@"+ip+":1521:"+db,user_name,password);
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		System.out.println("数据库连接失败！");
+	}
+	return conn;
+}
+
+}
